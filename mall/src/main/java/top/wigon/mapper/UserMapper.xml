@@ -14,10 +14,10 @@
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
+      <foreach collection="oredCriteria" item="userCriteria" separator="or">
+        <if test="userCriteria.valid">
           <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
+            <foreach collection="userCriteria.userCriteria" item="criterion">
               <choose>
                 <when test="criterion.noValue">
                   and ${criterion.condition}
@@ -43,10 +43,10 @@
   </sql>
   <sql id="Update_By_Example_Where_Clause">
     <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
+      <foreach collection="example.oredCriteria" item="userCriteria" separator="or">
+        <if test="userCriteria.valid">
           <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
+            <foreach collection="userCriteria.userCriteria" item="criterion">
               <choose>
                 <when test="criterion.noValue">
                   and ${criterion.condition}

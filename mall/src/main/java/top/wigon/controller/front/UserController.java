@@ -6,7 +6,7 @@
  * @history: <author>          <time>          <version>          <desc>
  * 作者姓名           修改时间           版本号              描述
  */
-package top.wigon.controller;
+package top.wigon.controller.front;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
