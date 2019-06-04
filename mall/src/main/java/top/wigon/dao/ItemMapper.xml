@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="top.wigon.mapper.DeliveryMapper">
-  <resultMap id="BaseResultMap" type="top.wigon.pojo.Delivery">
+<mapper namespace="top.wigon.dao.ItemMapper">
+  <resultMap id="BaseResultMap" type="top.wigon.pojo.Item">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="oid" jdbcType="INTEGER" property="oid" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="tel" jdbcType="VARCHAR" property="tel" />
-    <result column="state" jdbcType="VARCHAR" property="state" />
-    <result column="city" jdbcType="VARCHAR" property="city" />
-    <result column="district" jdbcType="VARCHAR" property="district" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="currentLocation" jdbcType="VARCHAR" property="currentlocation" />
-    <result column="deliveryState" jdbcType="TINYINT" property="deliverystate" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="shopId" jdbcType="VARCHAR" property="shopid" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
@@ -74,16 +71,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, oid, `name`, tel, `state`, city, district, address, currentLocation, deliveryState, 
-    gmt_create, gmt_modified
+    id, title, category, price, stock, `state`, shopId, gmt_create, gmt_modified
   </sql>
-  <select id="selectByExample" parameterType="top.wigon.pojo.DeliveryExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="top.wigon.pojo.ItemExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from delivery
+    from item
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -102,58 +98,47 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from delivery
+    from item
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from delivery
+    delete from item
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="top.wigon.pojo.DeliveryExample">
-    delete from delivery
+  <delete id="deleteByExample" parameterType="top.wigon.pojo.ItemExample">
+    delete from item
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="top.wigon.pojo.Delivery" useGeneratedKeys="true">
-    insert into delivery (oid, `name`, tel, 
-      `state`, city, district, 
-      address, currentLocation, deliveryState, 
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="top.wigon.pojo.Item" useGeneratedKeys="true">
+    insert into item (title, category, price, 
+      stock, `state`, shopId, 
       gmt_create, gmt_modified)
-    values (#{oid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
-      #{state,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR}, #{currentlocation,jdbcType=VARCHAR}, #{deliverystate,jdbcType=TINYINT}, 
+    values (#{title,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
+      #{stock,jdbcType=INTEGER}, #{state,jdbcType=TINYINT}, #{shopid,jdbcType=VARCHAR}, 
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="top.wigon.pojo.Delivery" useGeneratedKeys="true">
-    insert into delivery
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="top.wigon.pojo.Item" useGeneratedKeys="true">
+    insert into item
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="oid != null">
-        oid,
+      <if test="title != null">
+        title,
       </if>
-      <if test="name != null">
-        `name`,
+      <if test="category != null">
+        category,
       </if>
-      <if test="tel != null">
-        tel,
+      <if test="price != null">
+        price,
+      </if>
+      <if test="stock != null">
+        stock,
       </if>
       <if test="state != null">
         `state`,
       </if>
-      <if test="city != null">
-        city,
-      </if>
-      <if test="district != null">
-        district,
-      </if>
-      <if test="address != null">
-        address,
-      </if>
-      <if test="currentlocation != null">
-        currentLocation,
-      </if>
-      <if test="deliverystate != null">
-        deliveryState,
+      <if test="shopid != null">
+        shopId,
       </if>
       <if test="gmtCreate != null">
         gmt_create,
@@ -163,32 +148,23 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="oid != null">
-        #{oid,jdbcType=INTEGER},
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
       </if>
-      <if test="tel != null">
-        #{tel,jdbcType=VARCHAR},
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=INTEGER},
       </if>
       <if test="state != null">
-        #{state,jdbcType=VARCHAR},
+        #{state,jdbcType=TINYINT},
       </if>
-      <if test="city != null">
-        #{city,jdbcType=VARCHAR},
-      </if>
-      <if test="district != null">
-        #{district,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="currentlocation != null">
-        #{currentlocation,jdbcType=VARCHAR},
-      </if>
-      <if test="deliverystate != null">
-        #{deliverystate,jdbcType=TINYINT},
+      <if test="shopid != null">
+        #{shopid,jdbcType=VARCHAR},
       </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
@@ -198,44 +174,35 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="top.wigon.pojo.DeliveryExample" resultType="java.lang.Long">
-    select count(*) from delivery
+  <select id="countByExample" parameterType="top.wigon.pojo.ItemExample" resultType="java.lang.Long">
+    select count(*) from item
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update delivery
+    update item
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.oid != null">
-        oid = #{record.oid,jdbcType=INTEGER},
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
       </if>
-      <if test="record.name != null">
-        `name` = #{record.name,jdbcType=VARCHAR},
+      <if test="record.category != null">
+        category = #{record.category,jdbcType=VARCHAR},
       </if>
-      <if test="record.tel != null">
-        tel = #{record.tel,jdbcType=VARCHAR},
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.stock != null">
+        stock = #{record.stock,jdbcType=INTEGER},
       </if>
       <if test="record.state != null">
-        `state` = #{record.state,jdbcType=VARCHAR},
+        `state` = #{record.state,jdbcType=TINYINT},
       </if>
-      <if test="record.city != null">
-        city = #{record.city,jdbcType=VARCHAR},
-      </if>
-      <if test="record.district != null">
-        district = #{record.district,jdbcType=VARCHAR},
-      </if>
-      <if test="record.address != null">
-        address = #{record.address,jdbcType=VARCHAR},
-      </if>
-      <if test="record.currentlocation != null">
-        currentLocation = #{record.currentlocation,jdbcType=VARCHAR},
-      </if>
-      <if test="record.deliverystate != null">
-        deliveryState = #{record.deliverystate,jdbcType=TINYINT},
+      <if test="record.shopid != null">
+        shopId = #{record.shopid,jdbcType=VARCHAR},
       </if>
       <if test="record.gmtCreate != null">
         gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
@@ -249,52 +216,40 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update delivery
+    update item
     set id = #{record.id,jdbcType=INTEGER},
-      oid = #{record.oid,jdbcType=INTEGER},
-      `name` = #{record.name,jdbcType=VARCHAR},
-      tel = #{record.tel,jdbcType=VARCHAR},
-      `state` = #{record.state,jdbcType=VARCHAR},
-      city = #{record.city,jdbcType=VARCHAR},
-      district = #{record.district,jdbcType=VARCHAR},
-      address = #{record.address,jdbcType=VARCHAR},
-      currentLocation = #{record.currentlocation,jdbcType=VARCHAR},
-      deliveryState = #{record.deliverystate,jdbcType=TINYINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DECIMAL},
+      stock = #{record.stock,jdbcType=INTEGER},
+      `state` = #{record.state,jdbcType=TINYINT},
+      shopId = #{record.shopid,jdbcType=VARCHAR},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="top.wigon.pojo.Delivery">
-    update delivery
+  <update id="updateByPrimaryKeySelective" parameterType="top.wigon.pojo.Item">
+    update item
     <set>
-      <if test="oid != null">
-        oid = #{oid,jdbcType=INTEGER},
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="name != null">
-        `name` = #{name,jdbcType=VARCHAR},
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
       </if>
-      <if test="tel != null">
-        tel = #{tel,jdbcType=VARCHAR},
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null">
+        stock = #{stock,jdbcType=INTEGER},
       </if>
       <if test="state != null">
-        `state` = #{state,jdbcType=VARCHAR},
+        `state` = #{state,jdbcType=TINYINT},
       </if>
-      <if test="city != null">
-        city = #{city,jdbcType=VARCHAR},
-      </if>
-      <if test="district != null">
-        district = #{district,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null">
-        address = #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="currentlocation != null">
-        currentLocation = #{currentlocation,jdbcType=VARCHAR},
-      </if>
-      <if test="deliverystate != null">
-        deliveryState = #{deliverystate,jdbcType=TINYINT},
+      <if test="shopid != null">
+        shopId = #{shopid,jdbcType=VARCHAR},
       </if>
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
@@ -305,17 +260,14 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="top.wigon.pojo.Delivery">
-    update delivery
-    set oid = #{oid,jdbcType=INTEGER},
-      `name` = #{name,jdbcType=VARCHAR},
-      tel = #{tel,jdbcType=VARCHAR},
-      `state` = #{state,jdbcType=VARCHAR},
-      city = #{city,jdbcType=VARCHAR},
-      district = #{district,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR},
-      currentLocation = #{currentlocation,jdbcType=VARCHAR},
-      deliveryState = #{deliverystate,jdbcType=TINYINT},
+  <update id="updateByPrimaryKey" parameterType="top.wigon.pojo.Item">
+    update item
+    set title = #{title,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      stock = #{stock,jdbcType=INTEGER},
+      `state` = #{state,jdbcType=TINYINT},
+      shopId = #{shopid,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

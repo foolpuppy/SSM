@@ -1,5 +1,7 @@
 package top.wigon.pojo;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,6 +9,7 @@ import java.util.Date;
  * iteminfo
  * @author 
  */
+@Data
 public class Iteminfo implements Serializable {
     private Integer id;
 
@@ -28,51 +31,5 @@ public class Iteminfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getIid() {
-        return iid;
-    }
-
-    public void setIid(Integer iid) {
-        this.iid = iid;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
-
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

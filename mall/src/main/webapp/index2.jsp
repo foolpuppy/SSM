@@ -15,5 +15,6 @@
 <a href="新test.sql" download="新.sql">点击关机</a>
 <a href="test">test</a>
 <a href="user/id/1">用户1</a>
+<a href="user?pn=1&size=1">一页每页一个</a>
 </body>
 </html>

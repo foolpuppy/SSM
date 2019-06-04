@@ -19,10 +19,18 @@
     <mvc:annotation-driven/>
     <!--ViewResolver 视图解析器-->
     <!--用于支持Servlet、JSP视图解析-->
-    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>-->
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
+        <property name="order" value="2"/>
+    </bean>
+    <!-- 配置html视图解析 -->
+    <bean id="htmlViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/"/>
+        <property name="suffix" value=".html"/>
+        <property name="order" value="1"/>
     </bean>
     <!--文件上传解析器-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>

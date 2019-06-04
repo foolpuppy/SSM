@@ -8,21 +8,16 @@
  */
 package top.wigon.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.wigon.common.ReturnT;
-import top.wigon.mapper.UserMapper;
+import top.wigon.dao.UserMapper;
 import top.wigon.pojo.User;
 import top.wigon.service.UserService;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
- *
- *
  * Created by xuxueli on '2019-06-03 16:22:54'.
  */
 @Service
@@ -52,7 +47,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ReturnT<String> delete(int id) {
 		int ret = userMapper.deleteByPrimaryKey(id);
-		return ret>0?ReturnT.SUCCESS:ReturnT.FAIL;
+		return ret > 0 ? ReturnT.SUCCESS : ReturnT.FAIL;
 	}
 
 	/**
@@ -61,16 +56,30 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ReturnT<String> update(User user) {
 		int ret = userMapper.updateByPrimaryKey(user);
-		return ret>0?ReturnT.SUCCESS:ReturnT.FAIL;
+		return ret > 0 ? ReturnT.SUCCESS : ReturnT.FAIL;
+	}
+
+	/**
+	 * 获取所有用户
+	 *
+	 * @return
+	 */
+	@Override
+	public List<User> findAll() {
+		return userMapper.findAll();
 	}
 
 	/**
 	 * Load查询
 	 */
 	@Override
-	public User load(int id) {
+	public User find(int id) {
 		return userMapper.selectByPrimaryKey(id);
 	}
 
+	@Override
+	public User findByTel(String tel) {
+		return userMapper.selectByTel(tel);
+	}
 
 }

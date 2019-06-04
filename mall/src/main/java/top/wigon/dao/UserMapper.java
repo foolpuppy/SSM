@@ -1,10 +1,8 @@
-package top.wigon.mapper;
+package top.wigon.dao;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import top.wigon.pojo.User;
 import top.wigon.pojo.UserExample;
 
@@ -23,6 +21,8 @@ public interface UserMapper {
 
 	User selectByPrimaryKey(Integer id);
 
+	User selectByTel(String tel);
+
 	int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
 
 	int updateByExample(@Param("record") User record, @Param("example") UserExample example);
@@ -30,4 +30,6 @@ public interface UserMapper {
 	int updateByPrimaryKeySelective(User record);
 
 	int updateByPrimaryKey(User record);
+
+	List<User> findAll();
 }
