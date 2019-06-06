@@ -8,10 +8,10 @@
  */
 package top.wigon.controller.front;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import top.wigon.common.ReturnT;
 import top.wigon.pojo.Item;
 import top.wigon.service.ItemService;
@@ -24,7 +24,9 @@ import java.util.Map;
 /**
  * Created by xuxueli on '2019-06-04 15:24:21'.
  */
+@Slf4j
 @Controller
+@RequestMapping("/item")
 public class ItemController {
 
 	@Resource
@@ -60,20 +62,16 @@ public class ItemController {
 	/**
 	 * Load查询
 	 */
-	@RequestMapping("/load")
+	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public ReturnT<Item> load(int id) {
-		return new ReturnT<Item>(itemService.load(id));
+	public ModelAndView load(@PathVariable int id) {
+		log.info("id:{}", id);
+		log.info("ReturnT<Item>(itemService.load(id):{}", new ReturnT<Item>(itemService.load(id)));
+		ModelAndView mv=new ModelAndView();
+		mv.addObject("list", new ReturnT<Item>(itemService.load(id)).getData());
+		mv.setViewName("success");
+		return mv;
 	}
 
-	/**
-	 * 分页查询
-	 */
-	@RequestMapping("/pageList")
-	@ResponseBody
-	public Map<String, Object> pageList(@RequestParam(required = false, defaultValue = "0") int offset,
-	                                    @RequestParam(required = false, defaultValue = "10") int pagesize) {
-		return itemService.pageList(offset, pagesize);
-	}
 
 }

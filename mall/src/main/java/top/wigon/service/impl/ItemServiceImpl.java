@@ -50,7 +50,7 @@ public class ItemServiceImpl implements ItemService {
 	 */
 	@Override
 	public ReturnT<String> delete(int id) {
-		int ret = itemMapper.delete(id);
+		int ret = itemMapper.deleteByPrimaryKey(id);
 		return ret>0?ReturnT.SUCCESS:ReturnT.FAIL;
 	}
 
@@ -59,7 +59,7 @@ public class ItemServiceImpl implements ItemService {
 	 */
 	@Override
 	public ReturnT<String> update(Item item) {
-		int ret = itemMapper.update(item);
+		int ret = itemMapper.updateByPrimaryKey(item);
 		return ret>0?ReturnT.SUCCESS:ReturnT.FAIL;
 	}
 
@@ -68,7 +68,7 @@ public class ItemServiceImpl implements ItemService {
 	 */
 	@Override
 	public Item load(int id) {
-		return itemMapper.load(id);
+		return itemMapper.selectByPrimaryKey(id);
 	}
 
 }

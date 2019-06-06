@@ -88,12 +88,12 @@
                                        name="pnum"
                                        placeholder="请输入验证码" type="text">
                             </div>
-                            <img alt="验证码" id="captcha" onclick="updateCaptcha()" src="getCaptcha"
+                            <img alt="验证码" id="captcha" onclick="updateCaptcha()" src="/captcha"
                                  style="width: 150px;height: 36px;">
                         </div>
                         <div class="layui-form-item login-btn">
                             <div class="layui-input-block">
-                                <input class="layui-btn" lay-filter="demo1" lay-submit="" name="submit"
+                                <input class="layui-btn" lay-filter="demo1" lay-submit=""
                                        style="width: 400px; background-color:#FF794E;"
                                        type="submit" value="注册">
                             </div>
@@ -136,7 +136,7 @@
 
     function updateCaptcha() {
         random = new Date().getTime() + '' + Math.floor(Math.random() * Math.pow(10, 8));
-        $('#captcha').attr('src', '/getCaptcha?rand=' + random);
+        $('#captcha').attr('src', '/captcha?rand=' + random);
     }
 
     $(function () {
