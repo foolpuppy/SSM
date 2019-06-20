@@ -130,9 +130,9 @@
         var listCont = document.getElementById('list-cont');
         var url = '';
         if (window.location.href.indexOf('title') >= 0) {
-            url = 'search?title=' + window.location.href.split('title=')[1];
+            url = 'item/search?title=' + window.location.href.split('title=')[1];
         } else {
-            url = 'searchByCategory?category=' + window.location.href.split('category=')[1];
+            url = 'item/searchByCategory?category=' + window.location.href.split('category=')[1];
         }
         mm.request({
             url: url,

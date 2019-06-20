@@ -20,8 +20,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
- *
  * Created by xuxueli on '2019-06-04 15:24:21'.
  */
 @Service
@@ -51,7 +49,7 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public ReturnT<String> delete(int id) {
 		int ret = itemMapper.deleteByPrimaryKey(id);
-		return ret>0?ReturnT.SUCCESS:ReturnT.FAIL;
+		return ret > 0 ? ReturnT.SUCCESS : ReturnT.FAIL;
 	}
 
 	/**
@@ -60,7 +58,7 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public ReturnT<String> update(Item item) {
 		int ret = itemMapper.updateByPrimaryKey(item);
-		return ret>0?ReturnT.SUCCESS:ReturnT.FAIL;
+		return ret > 0 ? ReturnT.SUCCESS : ReturnT.FAIL;
 	}
 
 	/**
@@ -69,6 +67,11 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public Item load(int id) {
 		return itemMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public List<Item> loadByCategory(String category) {
+		return  itemMapper.loadByCategory(category);
 	}
 
 }

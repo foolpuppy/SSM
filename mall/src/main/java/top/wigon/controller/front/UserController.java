@@ -52,19 +52,29 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "login", method = RequestMethod.POST)
-	ModelAndView login(ModelAndView mv, @ModelAttribute User user, @RequestParam String kaptcha, HttpSession session, HttpServletResponse resp) {
+	String login(@ModelAttribute User user, @RequestParam String kaptcha, HttpSession session, HttpServletRequest req, HttpServletResponse resp) {
 		log.info("user:{},kaptcha:{}", user.toString(), kaptcha);
 		if (session.getAttribute(Constants.KAPTCHA_SESSION_KEY).equals(kaptcha) && userService.findByTel(user.getTel()).getPassword().equals(user.getPassword())) {
 			log.info("true");
 			//用户Tel 唯一ID 存Cookies
 			Cookie cookie = new Cookie("userTel", user.getTel());
+			cookie.setPath("/");
 			cookie.setMaxAge(60 * 30);
 			resp.addCookie(cookie);
-			mv.setViewName("index");
+			req.getSession().setAttribute("tel", user.getTel());
+			return "redirect:/index.html";
 		} else {
 			log.info("false");
-			mv.setViewName("login");
+			return "redirect:/login.html";
 		}
-		return mv;
+	}
+
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	String logOut(HttpServletRequest req) {
+		if (null != req.getSession().getAttribute("tel")) {
+			req.getSession().removeAttribute("tel");
+			req.getSession().invalidate();
+		}
+		return "redirect:/index.html";
 	}
 }

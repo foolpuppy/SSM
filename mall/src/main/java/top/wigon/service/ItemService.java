@@ -8,14 +8,14 @@
  */
 package top.wigon.service;
 
+import org.springframework.context.annotation.Bean;
 import top.wigon.common.ReturnT;
 import top.wigon.pojo.Item;
 
+import java.util.List;
 import java.util.Map;
 
 /**
- *
- *
  * Created by xuxueli on '2019-06-04 15:24:21'.
  */
 public interface ItemService {
@@ -39,5 +39,12 @@ public interface ItemService {
 	 * Load查询
 	 */
 	public Item load(int id);
+
+	/**
+	 * 分类查询
+	 * @param category
+	 * @return
+	 */
+	public List<Item> loadByCategory(String category);
 
 }

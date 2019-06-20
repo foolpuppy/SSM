@@ -29,4 +29,5 @@ public interface ItemMapper {
     int updateByPrimaryKeySelective(Item record);
 
     int updateByPrimaryKey(Item record);
+    List<Item> loadByCategory(String category);
 }

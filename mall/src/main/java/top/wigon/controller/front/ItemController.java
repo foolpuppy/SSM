@@ -8,16 +8,18 @@
  */
 package top.wigon.controller.front;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import top.wigon.common.ReturnT;
 import top.wigon.pojo.Item;
 import top.wigon.service.ItemService;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -61,16 +63,48 @@ public class ItemController {
 
 	/**
 	 * Load查询
+	 *
+	 * @return
 	 */
-	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET,produces = "text/plain;charset=utf-8")
 	@ResponseBody
-	public ModelAndView load(@PathVariable int id) {
+	public String load(@PathVariable int id) {
 		log.info("id:{}", id);
-		log.info("ReturnT<Item>(itemService.load(id):{}", new ReturnT<Item>(itemService.load(id)));
-		ModelAndView mv=new ModelAndView();
-		mv.addObject("list", new ReturnT<Item>(itemService.load(id)).getData());
-		mv.setViewName("success");
-		return mv;
+		log.info("Item itemService.load(id):{}", itemService.load(id));
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+		String JSON = null;
+		try {
+			JSON = objectMapper.writeValueAsString(itemService.load(id));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		StringBuffer content = new StringBuffer();
+		content.append("{\n" +
+				"  \"status\": 0,\n" +
+				"  \"detailList\":[");
+		content.append(JSON);
+		content.append("]}");
+		return content.toString();
+	}
+
+	@RequestMapping(value = "/searchByCategory", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public String loadByCategory(String category) {
+		log.info("category:{}", category);
+		log.info("List<Item>:{}", itemService.loadByCategory(category));
+		ObjectMapper objectMapper = new ObjectMapper();
+		String JSON = null;
+		try {
+			JSON = objectMapper.writeValueAsString(itemService.loadByCategory(category));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		StringBuffer content = new StringBuffer();
+		content.append("{\"status\":0,\"content\":");
+		content.append(JSON);
+		content.append("}");
+		return content.toString();
 	}
 
 

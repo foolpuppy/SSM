@@ -24,7 +24,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>LATEST</version>
-            <scope>compile</scope>
+            <scope></scope>
         </dependency>
         <!--Spring-->
         <dependency>
@@ -97,6 +97,22 @@
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
+        </dependency>
+<!--JACKSON-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>LATEST</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>LATEST</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>LATEST</version>
         </dependency>
         <!--文件上传-->
         <dependency>

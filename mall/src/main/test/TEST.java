@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import top.wigon.dao.ItemMapper;
 import top.wigon.utils.emailSender.JavaMailUtil;
@@ -20,6 +21,7 @@ import java.util.*;
  * 作者姓名           修改时间           版本号              描述
  */
 @RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath*:**/applicationContext.xml"})
 public class TEST {
 	@Autowired
 	ItemMapper itemMapper;

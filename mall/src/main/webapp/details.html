@@ -172,7 +172,7 @@
         var detailList2 = document.getElementById('summary');
         var detailList3 = document.getElementById('detail-box');
         mm.request({
-            url: 'getDetail?id=' + window.location.href.split('=')[1],
+            url: 'item/id/' + window.location.href.split('=')[1],
             success: function (res) {
                 console.log(res);
                 detailList.innerHTML = mm.renderHtml(html, res);
