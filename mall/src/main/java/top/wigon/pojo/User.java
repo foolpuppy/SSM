@@ -7,40 +7,60 @@ import java.util.Date;
 
 /**
  * user
- * @author 
+ *
+ * @author
  */
 @Data
 public class User implements Serializable {
-    /**
-     * 唯一主键UUID
-     */
-    private Integer id;
+	private static final long serialVersionUID = 42L;
 
-    private String tel;
+	/**
+	 * 唯一主键UUID
+	 */
+	private int id;
 
-    private String email;
+	/**
+	 *
+	 */
+	private String tel;
 
-    private String username;
+	/**
+	 *
+	 */
+	private String email;
 
-    /**
-     * 加密密码
-     */
-    private String password;
+	/**
+	 *
+	 */
+	private String username;
 
-    /**
-     * 是否开启1 开启，0 关闭
-     */
-    private Byte active;
+	/**
+	 * 加密密码
+	 */
+	private String password;
 
-    /**
-     * 用户类别：1普通用户，2商家用户，3管理员用户
-     */
-    private Byte role;
+	/**
+	 * 用户头像相对路径
+	 */
+	private String uimg;
 
-    private Date gmtCreate;
+	/**
+	 * 是否开启1 开启，0 关闭
+	 */
+	private int active;
 
-    private Date gmtModified;
+	/**
+	 * 用户类别：1普通用户，2商家用户，3管理员用户
+	 */
+	private int role;
 
-    private static final long serialVersionUID = 1L;
+	/**
+	 *
+	 */
+	private Date gmtCreate;
 
+	/**
+	 *
+	 */
+	private Date gmtModified;
 }

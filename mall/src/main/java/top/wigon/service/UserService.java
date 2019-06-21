@@ -36,14 +36,15 @@ public interface UserService {
 	public ReturnT<String> update(User user);
 
 	/**
-	 * 查询所有
-	 */
-	public List<User> findAll();
-
-	/**
 	 * Load查询
 	 */
-	public User find(int id);
+	public User load(int id);
+
+	/**
+	 * 分页查询
+	 */
+	public Map<String, Object> pageList(int offset, int pagesize);
+
 
 	/**
 	 * 通过电话号查找用户

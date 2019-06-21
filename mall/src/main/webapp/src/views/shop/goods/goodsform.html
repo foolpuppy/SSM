@@ -49,7 +49,7 @@
         <label class="layui-form-label">商品描述</label>
         <div class="layui-input-inline">
             <script template type="text/html">
-                <input type="text" name="desc" value="{{ d.params.desc || '' }}" lay-verify="required"
+                <input type="text" name="description" value="{{ d.params.description || '' }}" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </script>
         </div>
@@ -58,7 +58,7 @@
         <label class="layui-form-label">商品样图</label>
         <div class="layui-input-inline">
             <script template type="text/html">
-                <input type="text" name="itemImagePath" value="{{ d.params.item_image_path || '' }}"
+                <input type="text" name="itemImagePath" value="{{ d.params.img || '' }}"
                        lay-verify="required" placeholder="请上传图片" autocomplete="off" class="layui-input">
             </script>
         </div>

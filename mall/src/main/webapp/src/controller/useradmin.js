@@ -23,7 +23,7 @@ layui.define(['table', 'form'], function (exports) {
             {type: 'checkbox', fixed: 'left'}
             , {field: 'userId', width: 100, title: 'ID', sort: true}
             , {field: 'userName', title: '用户名', minWidth: 100}
-            , {field: 'avatarPath', title: '头像', width: 100, templet: '#imgTpl'}
+            , {field: 'uimg', title: '头像', width: 100, templet: '#imgTpl'}
             , {field: 'tel', title: '手机'}
             , {field: 'email', title: '邮箱'}
             , {field: 'roleType', title: '角色', templet: '#roleTpl'}
@@ -74,7 +74,7 @@ layui.define(['table', 'form'], function (exports) {
                                 data: {
                                     "password": field.password,
                                     "userId": field.userId,
-                                    "avatarPath": field.avatarPath,
+                                    "uimg": field.uimg,
                                     "username": field.username,
                                     "tel": field.phone,
                                     "email": field.email,

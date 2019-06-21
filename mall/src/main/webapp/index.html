@@ -202,7 +202,7 @@
 <script id="demo" type="text/html">
     {{# layui.each(d.floor.banner.cont,function(index,item){}}
     <div class="item">
-        <a href="details.html?id={{item.id}}"><img src="{{item.item_image_path}}"></a>
+        <a href="details.html?id={{item.id}}"><img src="{{item.img}}"></a>
         <div class="title" style="width: 190px;height:40px;font-size: 10px;overflow: hidden;">{{item.title}}</div>
         <div class="price">
             <span>￥{{item.price}}</span>
@@ -223,7 +223,7 @@
             <img src="{{item.bigImg}}" alt="">
             <div class="img-box">
                 {{# layui.each(item.imgBox,function(index1,item1){}}
-                <a href="details.html?id={{item1.id}}"><img src="{{item1.item_image_path}}"></a>
+                <a href="details.html?id={{item1.id}}"><img src="{{item1.img}}"></a>
                 {{# }); }}
             </div>
         </div>
@@ -235,7 +235,7 @@
 <script id="demo2" type="text/html">
     {{# layui.each(d.productList,function(index,item){}}
     <div class="list-item">
-        <a href="details.html?id={{item.id}}"><img src="{{item.item_image_path}}"
+        <a href="details.html?id={{item.id}}"><img src="{{item.img}}"
                                                    style="width: 160px;height: 210px;padding: 0px;"></a>
         <p style="height:40px;font-size: 10px;overflow: hidden;">{{item.title}}</p>
         <span>￥{{item.price}}</span>

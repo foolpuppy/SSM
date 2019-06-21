@@ -7,35 +7,64 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * item
- * @author 
+ * Created by xuxueli on '2019-06-21 16:22:28'.
  */
 @Data
 public class Item implements Serializable {
-    private Integer id;
+	private static final long serialVersionUID = 42L;
 
-    private String title;
+	/**
+	 *
+	 */
+	private int id;
 
-    private String category;
+	/**
+	 *
+	 */
+	private String title;
 
-    private BigDecimal price;
+	/**
+	 *
+	 */
+	private String category;
 
-    private Integer stock;
+	/**
+	 *
+	 */
+	private BigDecimal price;
 
-    /**
-     * 商品状态1是上架，2是下架
-     */
-    private Byte state;
+	/**
+	 * 商品的图片地址
+	 */
+	private String img;
 
-    /**
-     * 店铺ID
-     */
-    private String shopid;
+	/**
+	 * \"\"
+	 */
+	private String description;
 
-    private Date gmtCreate;
+	/**
+	 *
+	 */
+	private int stock;
 
-    private Date gmtModified;
+	/**
+	 * 商品状态1是上架，2是下架
+	 */
+	private int state;
 
-    private static final long serialVersionUID = 1L;
+	/**
+	 * 店铺ID
+	 */
+	private String shopId;
 
+	/**
+	 *
+	 */
+	private Date gmtCreate;
+
+	/**
+	 *
+	 */
+	private Date gmtModified;
 }

@@ -147,15 +147,15 @@
     $(function () {
         var userTel = $.cookie("userTel");
         $.ajax({
-            url: "userInfo",
+            url: "user/info",
             type: "post",
-            data: {"userTel": userTel},
+            data: {"tel": userTel},
             dataType: "json",
             success: function (data) {
-                $("#img").prop("src", data.avatarPath);
-                $("#id").html(data.userId);
+                $("#img").prop("src", data.uimg);
+                $("#id").html(data.id);
                 $("#phone").html(data.tel);
-                $("#username").html(data.userName);
+                $("#username").html(data.username);
                 $("#email").html(data.email);
             }
         });

@@ -86,7 +86,7 @@ layui.define(['table', 'form'], function (exports) {
                             $.ajax({
                                 url : "../userEdit",
                                 type : "post",
-                                data : {"password":field.password ,"userId":field.userId ,"avatarPath":field.avatarPath,"username":field.username , "tel":field.phone , "email":field.email , "roleType":field.role},
+                                data : {"password":field.password ,"userId":field.userId ,"uimg":field.uimg,"username":field.username , "tel":field.phone , "email":field.email , "roleType":field.role},
                                 dataType: "json",
                                 success : function(data) {
                                     layui.table.reload('LAY-order-manage'); //重载表格

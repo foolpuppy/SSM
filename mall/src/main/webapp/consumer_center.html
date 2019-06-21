@@ -174,16 +174,20 @@
     $(function () {
         var userTel = $.cookie("userTel");
         $.ajax({
-            url: "userInfo",
+            url: "user/info",
             type: "post",
-            data: {"userTel": userTel},
+            data: {"tel": userTel},
             dataType: "json",
             success: function (data) {
-                $("#img").prop("src", data.avatarPath);
-                $("#username").html(data.userName);
-                $("#id").html("用户ID：" + data.userId);
-                $("#phone").html("用户电话：" + data.tel);
-                $("#email").html("用户邮箱：" + data.email);
+                if (data !== 500) {
+                    $("#img").prop("src", data.uimg);
+                    $("#username").html(data.username);
+                    $("#id").html("用户ID：" + data.id);
+                    $("#phone").html("用户电话：" + data.tel);
+                    $("#email").html("用户邮箱：" + data.email);
+                } else {
+                    window.location.href = "/";
+                }
             }
         });
     })

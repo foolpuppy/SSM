@@ -3,33 +3,47 @@ package top.wigon.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 import top.wigon.pojo.User;
-import top.wigon.pojo.UserExample;
 
+@Component
 public interface UserMapper {
-	long countByExample(UserExample example);
 
-	int deleteByExample(UserExample example);
+	/**
+	 * 新增
+	 */
+	public int insert(@Param("user") User user);
 
-	int deleteByPrimaryKey(Integer id);
+	/**
+	 * 删除
+	 */
+	public int delete(@Param("id") int id);
 
-	int insert(User record);
+	/**
+	 * 更新
+	 */
+	public int update(@Param("user") User user);
 
-	int insertSelective(User record);
+	/**
+	 * Load查询
+	 */
+	public User load(@Param("id") int id);
 
-	List<User> selectByExample(UserExample example);
+	/**
+	 * Load查询 ByTEL
+	 */
+	public User selectByTel(@Param("tel") String tel);
 
-	User selectByPrimaryKey(Integer id);
+	/**
+	 * 分页查询Data
+	 */
+	public List<User> pageList(@Param("offset") int offset,
+	                           @Param("pagesize") int pagesize);
 
-	User selectByTel(String tel);
+	/**
+	 * 分页查询Count
+	 */
+	public int pageListCount(@Param("offset") int offset,
+	                         @Param("pagesize") int pagesize);
 
-	int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
-
-	int updateByExample(@Param("record") User record, @Param("example") UserExample example);
-
-	int updateByPrimaryKeySelective(User record);
-
-	int updateByPrimaryKey(User record);
-
-	List<User> findAll();
 }

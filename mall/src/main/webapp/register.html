@@ -43,7 +43,7 @@
     <div class="login-bg">
         <div class="login-cont w1200">
             <div class="register-box">
-                <form action="regist" method="post">
+                <form action="user/reg" method="post">
                     <legend>欢迎注册</legend>
                     <div class="form-item">
                         <div class="layui-inline iphone">
@@ -57,7 +57,7 @@
                             <div class="layui-input-inline">
                                 <i class="layui-icon layui-icon-cellphone iphone-icon"></i>
                                 <input autocomplete="off" class="layui-input" id="phone" lay-verify="required|phone"
-                                       name="phone" placeholder="请输入手机号" type="tel">
+                                       name="tel" placeholder="请输入手机号" type="tel">
                             </div>
                         </div>
                         <div class="layui-inline iphone">
@@ -85,7 +85,7 @@
                         <div class="layui-inline veri-code">
                             <div style="width: 245px; display: inline-block;">
                                 <input autocomplete="off" class="layui-input" id="pnum" lay-verify="required"
-                                       name="pnum"
+                                       name="kaptcha"
                                        placeholder="请输入验证码" type="text">
                             </div>
                             <img alt="验证码" id="captcha" onclick="updateCaptcha()" src="/captcha"
@@ -163,12 +163,12 @@
                 phone_error = "电话号码格式错误";
             } else {
                 $.ajax({
-                    url: "/checkTel",
+                    url: "user/checkTel",
                     type: "post",
                     dataType: "json",
-                    data: {"phone": $("#phone").val()},
+                    data: {"tel": $("#phone").val()},
                     success: function (data) {
-                        if (data === 1) {
+                        if (data.code === 200) {
                             $("#error-msg").html("该手机号已被注册");
                             phone_error = "该手机号已被注册";
                         } else {

@@ -12,34 +12,65 @@ import java.util.Date;
  */
 @Data
 public class Delivery implements Serializable {
-	private Integer id;
+	private static final long serialVersionUID = 42L;
 
-	private Integer oid;
+	/**
+	 *
+	 */
+	private int id;
 
+	/**
+	 *
+	 */
+	private int oid;
+
+	/**
+	 *
+	 */
 	private String name;
 
+	/**
+	 *
+	 */
 	private String tel;
 
+	/**
+	 *
+	 */
 	private String state;
 
+	/**
+	 *
+	 */
 	private String city;
 
+	/**
+	 *
+	 */
 	private String district;
 
+	/**
+	 *
+	 */
 	private String address;
 
-	private String currentlocation;
+	/**
+	 *
+	 */
+	private String currentLocation;
 
 	/**
 	 * 配送状态，0未配送，1配送中，2已签收
 	 */
-	private Byte deliverystate;
+	private int deliveryState;
 
+	/**
+	 *
+	 */
 	private Date gmtCreate;
 
+	/**
+	 *
+	 */
 	private Date gmtModified;
-
-	private static final long serialVersionUID = 1L;
-
-
 }

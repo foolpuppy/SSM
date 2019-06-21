@@ -1,289 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.wigon.dao.UserMapper">
-    <resultMap id="BaseResultMap" type="top.wigon.pojo.User">
-        <id column="id" jdbcType="INTEGER" property="id"/>
-        <result column="tel" jdbcType="VARCHAR" property="tel"/>
-        <result column="email" jdbcType="VARCHAR" property="email"/>
-        <result column="username" jdbcType="VARCHAR" property="username"/>
-        <result column="password" jdbcType="VARCHAR" property="password"/>
-        <result column="active" jdbcType="TINYINT" property="active"/>
-        <result column="role" jdbcType="TINYINT" property="role"/>
-        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
-        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
+
+    <resultMap id="User" type="top.wigon.pojo.User">
+        <result column="id" property="id"/>
+        <result column="tel" property="tel"/>
+        <result column="email" property="email"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="uimg" property="uimg"/>
+        <result column="active" property="active"/>
+        <result column="role" property="role"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
     </resultMap>
-    <sql id="Example_Where_Clause">
-        <where>
-            <foreach collection="oredCriteria" item="userCriteria" separator="or">
-                <if test="userCriteria.valid">
-                    <trim prefix="(" prefixOverrides="and" suffix=")">
-                        <foreach collection="userCriteria.userCriteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
-                                    and ${criterion.condition}
-                                </when>
-                                <when test="criterion.singleValue">
-                                    and ${criterion.condition} #{criterion.value}
-                                </when>
-                                <when test="criterion.betweenValue">
-                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                                </when>
-                                <when test="criterion.listValue">
-                                    and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
-                                             separator=",">
-                                        #{listItem}
-                                    </foreach>
-                                </when>
-                            </choose>
-                        </foreach>
-                    </trim>
-                </if>
-            </foreach>
-        </where>
-    </sql>
-    <sql id="Update_By_Example_Where_Clause">
-        <where>
-            <foreach collection="example.oredCriteria" item="userCriteria" separator="or">
-                <if test="userCriteria.valid">
-                    <trim prefix="(" prefixOverrides="and" suffix=")">
-                        <foreach collection="userCriteria.userCriteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
-                                    and ${criterion.condition}
-                                </when>
-                                <when test="criterion.singleValue">
-                                    and ${criterion.condition} #{criterion.value}
-                                </when>
-                                <when test="criterion.betweenValue">
-                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                                </when>
-                                <when test="criterion.listValue">
-                                    and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
-                                             separator=",">
-                                        #{listItem}
-                                    </foreach>
-                                </when>
-                            </choose>
-                        </foreach>
-                    </trim>
-                </if>
-            </foreach>
-        </where>
-    </sql>
+
     <sql id="Base_Column_List">
-    id, tel, email, username, `password`, active, `role`, gmt_create, gmt_modified
-  </sql>
-    <select id="selectByExample" parameterType="top.wigon.pojo.UserExample" resultMap="BaseResultMap">
-        select
-        <if test="distinct">
-            distinct
-        </if>
-        <include refid="Base_Column_List"/>
-        from user
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-        <if test="orderByClause != null">
-            order by ${orderByClause}
-        </if>
-        <if test="limit != null">
-            <if test="offset != null">
-                limit ${offset}, ${limit}
-            </if>
-            <if test="offset == null">
-                limit ${limit}
-            </if>
-        </if>
-    </select>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from user
-        where id = #{id,jdbcType=INTEGER}
-    </select>
-    <select id="selectByTel" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from user
-        where tel = #{id,jdbcType=VARCHAR}
-    </select>
-    <select id="findAll" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from user
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-    <delete id="deleteByExample" parameterType="top.wigon.pojo.UserExample">
-        delete from user
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-    </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="top.wigon.pojo.User" useGeneratedKeys="true">
-    insert into user (tel, email, username, 
-      `password`, active, `role`, 
-      gmt_create, gmt_modified)
-    values (#{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{active,jdbcType=TINYINT}, #{role,jdbcType=TINYINT}, 
-      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
-  </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="top.wigon.pojo.User"
-            useGeneratedKeys="true">
-        insert into user
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="tel != null">
-                tel,
-            </if>
-            <if test="email != null">
-                email,
-            </if>
-            <if test="username != null">
-                username,
-            </if>
-            <if test="password != null">
-                `password`,
-            </if>
-            <if test="active != null">
-                active,
-            </if>
-            <if test="role != null">
-                `role`,
-            </if>
-            <if test="gmtCreate != null">
-                gmt_create,
-            </if>
-            <if test="gmtModified != null">
-                gmt_modified,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="tel != null">
-                #{tel,jdbcType=VARCHAR},
-            </if>
-            <if test="email != null">
-                #{email,jdbcType=VARCHAR},
-            </if>
-            <if test="username != null">
-                #{username,jdbcType=VARCHAR},
-            </if>
-            <if test="password != null">
-                #{password,jdbcType=VARCHAR},
-            </if>
-            <if test="active != null">
-                #{active,jdbcType=TINYINT},
-            </if>
-            <if test="role != null">
-                #{role,jdbcType=TINYINT},
-            </if>
-            <if test="gmtCreate != null">
-                #{gmtCreate,jdbcType=TIMESTAMP},
-            </if>
-            <if test="gmtModified != null">
-                #{gmtModified,jdbcType=TIMESTAMP},
-            </if>
-        </trim>
+        `id`,
+        `tel`,
+        `email`,
+        `username`,
+        `password`,
+        `uimg`,
+        `active`,
+        `role`,
+        `gmt_create`,
+        `gmt_modified`
+    </sql>
+
+    <insert id="insert" parameterType="java.util.Map">
+        INSERT INTO user (`id`,
+                          `tel`,
+                          `email`,
+                          `username`,
+                          `password`,
+                          `uimg`,
+                          `active`,
+                          `role`,
+                          `gmt_create`,
+                          `gmt_modified`)
+        VALUES (#{user.id},
+                #{user.tel},
+                #{user.email},
+                #{user.username},
+                #{user.password},
+                #{user.uimg},
+                #{user.active},
+                #{user.role},
+                #{user.gmtCreate},
+                #{user.gmtModified})
     </insert>
-    <select id="countByExample" parameterType="top.wigon.pojo.UserExample" resultType="java.lang.Long">
-        select count(*) from user
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
+
+    <delete id="delete" parameterType="java.util.Map">
+        DELETE
+        FROM user
+        WHERE `id` = #{id}
+    </delete>
+
+    <update id="update" parameterType="java.util.Map">
+        UPDATE user
+        SET id           = #{user.id},
+            tel          = #{user.tel},
+            email        = #{user.email},
+            username     = #{user.username},
+            password     = #{user.password},
+            uimg         = #{user.uimg},
+            active       = #{user.active},
+            role         = #{user.role},
+            gmt_create   = #{user.gmtCreate},
+            gmt_modified = #{user.gmtModified},
+            UpdateTime   = NOW()
+        WHERE `id` = #{user.id}
+    </update>
+
+
+    <select id="load" parameterType="java.util.Map" resultMap="User">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user
+        WHERE `id` = #{id}
     </select>
-    <update id="updateByExampleSelective" parameterType="map">
-        update user
-        <set>
-            <if test="record.id != null">
-                id = #{record.id,jdbcType=INTEGER},
-            </if>
-            <if test="record.tel != null">
-                tel = #{record.tel,jdbcType=VARCHAR},
-            </if>
-            <if test="record.email != null">
-                email = #{record.email,jdbcType=VARCHAR},
-            </if>
-            <if test="record.username != null">
-                username = #{record.username,jdbcType=VARCHAR},
-            </if>
-            <if test="record.password != null">
-                `password` = #{record.password,jdbcType=VARCHAR},
-            </if>
-            <if test="record.active != null">
-                active = #{record.active,jdbcType=TINYINT},
-            </if>
-            <if test="record.role != null">
-                `role` = #{record.role,jdbcType=TINYINT},
-            </if>
-            <if test="record.gmtCreate != null">
-                gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
-            </if>
-            <if test="record.gmtModified != null">
-                gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
-            </if>
-        </set>
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
-        </if>
-    </update>
-    <update id="updateByExample" parameterType="map">
-        update user
-        set id = #{record.id,jdbcType=INTEGER},
-        tel = #{record.tel,jdbcType=VARCHAR},
-        email = #{record.email,jdbcType=VARCHAR},
-        username = #{record.username,jdbcType=VARCHAR},
-        `password` = #{record.password,jdbcType=VARCHAR},
-        active = #{record.active,jdbcType=TINYINT},
-        `role` = #{record.role,jdbcType=TINYINT},
-        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
-        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP}
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
-        </if>
-    </update>
-    <update id="updateByPrimaryKeySelective" parameterType="top.wigon.pojo.User">
-        update user
-        <set>
-            <if test="tel != null">
-                tel = #{tel,jdbcType=VARCHAR},
-            </if>
-            <if test="email != null">
-                email = #{email,jdbcType=VARCHAR},
-            </if>
-            <if test="username != null">
-                username = #{username,jdbcType=VARCHAR},
-            </if>
-            <if test="password != null">
-                `password` = #{password,jdbcType=VARCHAR},
-            </if>
-            <if test="active != null">
-                active = #{active,jdbcType=TINYINT},
-            </if>
-            <if test="role != null">
-                `role` = #{role,jdbcType=TINYINT},
-            </if>
-            <if test="gmtCreate != null">
-                gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-            </if>
-            <if test="gmtModified != null">
-                gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-            </if>
-        </set>
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="top.wigon.pojo.User">
-    update user
-    set tel = #{tel,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      username = #{username,jdbcType=VARCHAR},
-      `password` = #{password,jdbcType=VARCHAR},
-      active = #{active,jdbcType=TINYINT},
-      `role` = #{role,jdbcType=TINYINT},
-      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+    <select id="selectByTel" parameterType="java.lang.String" resultMap="User">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user
+        WHERE `tel` = #{tel}
+    </select>
+
+    <select id="pageList" parameterType="java.util.Map" resultMap="User">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user
+        LIMIT #{offset}, #{pagesize}
+    </select>
+
+    <select id="pageListCount" parameterType="java.util.Map" resultType="int">
+        SELECT count(1)
+        FROM user
+    </select>
+
 </mapper>

@@ -3,13 +3,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import top.wigon.dao.DeliveryMapper;
 import top.wigon.dao.ItemMapper;
-import top.wigon.dao.OrdersMapper;
-import top.wigon.dao.ShopperMapper;
-import top.wigon.pojo.Delivery;
 
 /**
  * @fileName: MapperTest
@@ -26,38 +25,18 @@ import top.wigon.pojo.Delivery;
 public class MapperTest {
 	@Before
 	public void init() {
-//		ApplicationContext ac=new ClassPathXmlApplicationContext("applicationContext.xml");
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
 
 	}
 
 	@Autowired
 	ItemMapper itemMapper;
 	@Autowired
-	OrdersMapper orderMapper;
-	@Autowired
-	ShopperMapper shopperMapper;
-	@Autowired
 	DeliveryMapper deliveryMapper;
 
 	@Test
 	public void ItemMapper() {
-		log.info(itemMapper.selectByPrimaryKey(1).toString());
-	}
-
-	@Test
-	public void OrderMapper() {
-//		orderMapper.selectByPrimaryKey(1);
-		log.info(orderMapper.selectByPrimaryKey(1).toString());
-//		log.info();
-	}
-
-	@Test
-	public void ShooperMapper() {
-		log.info(shopperMapper.selectByPrimaryKey(1).toString());
-	}
-
-	@Test
-	public void DeliveryMapper() {
-		log.info(deliveryMapper.selectByPrimaryKey(1).toString());
+//		log.info(itemMapper.load(1000000256).toString());
+		log.info(itemMapper.loadByCategory("笔记本电脑").toString());
 	}
 }

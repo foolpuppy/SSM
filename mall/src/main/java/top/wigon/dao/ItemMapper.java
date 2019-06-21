@@ -1,33 +1,64 @@
 package top.wigon.dao;
 
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import top.wigon.pojo.Item;
-import top.wigon.pojo.ItemExample;
 
-@Repository
+import java.util.List;
+
+/**
+ * Created by xuxueli on '2019-06-21 16:22:28'.
+ */
+@Component
 public interface ItemMapper {
-    long countByExample(ItemExample example);
 
-    int deleteByExample(ItemExample example);
+	/**
+	 * 新增
+	 */
+	public int insert(@Param("item") Item item);
 
-    int deleteByPrimaryKey(Integer id);
+	/**
+	 * 删除
+	 */
+	public int delete(@Param("id") int id);
 
-    int insert(Item record);
+	/**
+	 * 更新
+	 */
+	public int update(@Param("item") Item item);
 
-    int insertSelective(Item record);
+	/**
+	 * Load查询
+	 */
+	public Item load(@Param("id") int id);
 
-    List<Item> selectByExample(ItemExample example);
+	/**
+	 * 分页查询Data
+	 */
+	public List<Item> pageList(@Param("offset") int offset,
+	                           @Param("pagesize") int pagesize);
 
-    Item selectByPrimaryKey(Integer id);
+	/**
+	 * 分页查询Count
+	 */
+	public int pageListCount(@Param("offset") int offset,
+	                         @Param("pagesize") int pagesize);
 
-    int updateByExampleSelective(@Param("record") Item record, @Param("example") ItemExample example);
+	/**
+	 * 分类查询
+	 *
+	 * @param category
+	 * @return
+	 */
+	List<Item> loadByCategory(String category);
 
-    int updateByExample(@Param("record") Item record, @Param("example") ItemExample example);
+	/**
+	 * 根据名字查找商品
+	 *
+	 * @param title
+	 * @return
+	 */
 
-    int updateByPrimaryKeySelective(Item record);
+	public List<Item> loadByTitle(String title);
 
-    int updateByPrimaryKey(Item record);
-    List<Item> loadByCategory(String category);
 }

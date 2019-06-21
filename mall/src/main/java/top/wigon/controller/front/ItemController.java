@@ -19,9 +19,7 @@ import top.wigon.pojo.Item;
 import top.wigon.service.ItemService;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by xuxueli on '2019-06-04 15:24:21'.
@@ -66,11 +64,9 @@ public class ItemController {
 	 *
 	 * @return
 	 */
-	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET,produces = "text/plain;charset=utf-8")
+	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
 	@ResponseBody
 	public String load(@PathVariable int id) {
-		log.info("id:{}", id);
-		log.info("Item itemService.load(id):{}", itemService.load(id));
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 		String JSON = null;
@@ -105,6 +101,31 @@ public class ItemController {
 		content.append(JSON);
 		content.append("}");
 		return content.toString();
+	}
+
+	@RequestMapping(value = "search", produces = "text/plain;charset=utf-8")
+
+	@ResponseBody
+	public String search(@RequestParam String title) {
+
+		List<Item> userList = itemService.loadByTitle(title);
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+		String JSON = null;
+		try {
+			JSON = objectMapper.writeValueAsString(userList);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		StringBuffer content = new StringBuffer();
+		content.append("{\"status\":");
+		content.append("0");
+		content.append(",\"content\":");
+		content.append(JSON);
+		content.append("}");
+		return content.toString();
+
+
 	}
 
 

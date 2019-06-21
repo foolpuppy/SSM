@@ -48,7 +48,7 @@ public class ItemServiceImpl implements ItemService {
 	 */
 	@Override
 	public ReturnT<String> delete(int id) {
-		int ret = itemMapper.deleteByPrimaryKey(id);
+		int ret = itemMapper.delete(id);
 		return ret > 0 ? ReturnT.SUCCESS : ReturnT.FAIL;
 	}
 
@@ -57,7 +57,7 @@ public class ItemServiceImpl implements ItemService {
 	 */
 	@Override
 	public ReturnT<String> update(Item item) {
-		int ret = itemMapper.updateByPrimaryKey(item);
+		int ret = itemMapper.update(item);
 		return ret > 0 ? ReturnT.SUCCESS : ReturnT.FAIL;
 	}
 
@@ -66,12 +66,52 @@ public class ItemServiceImpl implements ItemService {
 	 */
 	@Override
 	public Item load(int id) {
-		return itemMapper.selectByPrimaryKey(id);
+		return itemMapper.load(id);
+	}
+
+	/**
+	 * 分页查询
+	 */
+	@Override
+	public Map<String, Object> pageList(int offset, int pagesize) {
+
+		List<Item> pageList = itemMapper.pageList(offset, pagesize);
+		int totalCount = itemMapper.pageListCount(offset, pagesize);
+
+		// result
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("pageList", pageList);
+		result.put("totalCount", totalCount);
+
+		return result;
+	}
+
+	/**
+	 * 分类查询
+	 *
+	 * @param category
+	 * @return
+	 */
+	@Override
+	public List<Item> loadByCategory(String category) {
+		return itemMapper.loadByCategory(category);
+	}
+
+	/**
+	 * 分页查询
+	 *
+	 * @param offset
+	 * @param pagesize
+	 * @return
+	 */
+	@Override
+	public List<Item> loadPage(int offset, int pagesize) {
+		return itemMapper.pageList(offset, pagesize);
 	}
 
 	@Override
-	public List<Item> loadByCategory(String category) {
-		return  itemMapper.loadByCategory(category);
+	public List<Item> loadByTitle(String title) {
+		return itemMapper.loadByTitle(title);
 	}
 
 }

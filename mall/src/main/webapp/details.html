@@ -131,7 +131,7 @@
 <!--数据模板-->
 <script id="demo" type="text/html">
     {{# layui.each(d.detailList,function(index,item){}}
-    <a href=""><img style="width: 402px;height: 402px;" id="goods_img" src="{{item.item_image_path}}"></a>
+    <a href=""><img style="width: 402px;height: 402px;" id="goods_img" src="{{item.img}}"></a>
     {{# }); }}
 </script>
 <script id="demo1" type="text/html">
@@ -152,7 +152,7 @@
 </script>
 <script id="demo3" type="text/html">
     {{# layui.each(d.detailList,function(index,item){}}
-    {{item.desc}}
+    {{item.description}}
     {{# }); }}
 </script>
 <!--模板引擎渲染数据-->

@@ -24,12 +24,12 @@ layui.define(['table', 'form'], function (exports) {
             , {field: 'id', width: 100, title: 'ID', sort: true}
             , {field: 'title', title: '商品标题', minWidth: 100}
             , {field: 'category', title: '商品分类', minWidth: 100}
-            , {field: 'item_image_path', title: '商品样图', width: 300, height: 300, templet: '#imgTpl'}
+            , {field: 'img', title: '商品样图', width: 300, height: 300, templet: '#imgTpl'}
             , {field: 'price', title: '单价'}
             , {field: 'stock', title: '库存'}
             , {field: 'state', title: '商品状态', templet: '#roleTpl'}
             , {field: 'shopId', title: '店铺编号'}
-            , {field: 'desc', title: '商品描述'}
+            , {field: 'description', title: '商品描述'}
             , {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-useradmin-webuser'}
         ]]
         , page: true
@@ -80,7 +80,7 @@ layui.define(['table', 'form'], function (exports) {
                                     "price": field.price,
                                     "stock": field.stock,
                                     "shopId": field.shopId,
-                                    "desc": field.desc,
+                                    "description": field.description,
                                     "state": field.state,
                                     "itemImagePath": field.itemImagePath
                                 },

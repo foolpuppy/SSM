@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.wigon.pojo.Item;
 import top.wigon.service.ItemService;
@@ -65,31 +64,30 @@ public class CommonController {
 	public String init() {
 		ObjectMapper objectMapper = new ObjectMapper();
 		String JSON = null;
-		List<Item> itemLista = itemService.loadByCategory("笔记本电脑").subList(0, 4);
-		log.info(itemLista.toString());
-		List<Item> itemListb = itemService.loadByCategory("水果生鲜").subList(0, 4);
-		List<Item> itemListc = itemService.loadByCategory("美妆馆").subList(0, 4);
-		List<Item> itemListd = itemService.loadByCategory("美妆馆").subList(0, 4);
+		List<Item> itemLista = itemService.loadByCategory("笔记本电脑").subList(0, 5);
+		List<Item> itemListb = itemService.loadByCategory("水果生鲜").subList(0, 5);
+		List<Item> itemListc = itemService.loadByCategory("美妆馆").subList(0, 5);
+		List<Item> itemListd = itemService.loadPage(0,20);
 		StringBuffer content = new StringBuffer();
 		content.append("{\"status\": 0,\"floor\": {\"bigimg\": \"res/static/img/s_img1.jpg\",");
 		content.append("\"banner\": {");
 		content.append("\"cont\":");
 		try {
-			JSON = objectMapper.writeValueAsString(itemLista);
+			JSON = objectMapper.writeValueAsString(itemListd);
 
 			content.append(JSON);
 			content.append("}},");
 			content.append("\"proct\": [{\"floorNum\": \"1F\",\"productItem\": \"product-item1\",\"carImg\": \"res/static/img/icon_gou.png\", \"text\": \"电子产品\",\"bigImg\": \"res/static/img/img1.jpg\",\n" +
 					" \"imgBox\":");
-			JSON = objectMapper.writeValueAsString(itemListb);
+			JSON = objectMapper.writeValueAsString(itemLista);
 			content.append(JSON);
 			content.append("},");
 			content.append("{\"floorNum\": \"2F\",\"productItem\": \"product-item2\",\"carImg\": \"res/static/img/icon_gou.png\",\"text\": \"水果生鲜\",\"bigImg\": \"res/static/img/img2.jpg\",\"imgBox\": ");
-			JSON = objectMapper.writeValueAsString(itemListc);
+			JSON = objectMapper.writeValueAsString(itemListb);
 			content.append(JSON);
 			content.append("},");
 			content.append("{\"floorNum\": \"3F\",\"productItem\": \"product-item3\",\"carImg\": \"res/static/img/icon_gou.png\", \"text\": \"美妆馆\",\"bigImg\": \"res/static/img/img3.jpg\",\"imgBox\": ");
-			JSON = objectMapper.writeValueAsString(itemListd);
+			JSON = objectMapper.writeValueAsString(itemListc);
 			content.append(JSON);
 			content.append("}],");
 			content.append("\"productList\": ");
