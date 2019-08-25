@@ -46,4 +46,5 @@ public interface UserMapper {
 	public int pageListCount(@Param("offset") int offset,
 	                         @Param("pagesize") int pagesize);
 
+
 }
