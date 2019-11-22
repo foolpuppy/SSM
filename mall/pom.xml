@@ -23,7 +23,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>LATEST</version>
+            <version>4.1.2</version>
             <scope></scope>
         </dependency>
         <!--Spring-->
